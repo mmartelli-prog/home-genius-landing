@@ -6,19 +6,11 @@ export default async function handler(req, res) {
   try {
     const body = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
     if (!Array.isArray(body)) return res.status(400).json({ ok: false, error: "Expect JSON array" });
-
     const col = (await clientPromise).db("homegenius").collection("facts");
     const ops = body.map(it => ({
       updateOne: {
         filter: { key: String(it.key) },
-        update: {
-          $set: {
-            key: String(it.key),
-            value: it.value ?? null,
-            tags: Array.isArray(it.tags) ? it.tags : [],
-            updated_at: new Date()
-          }
-        },
+        update: { $set: { key: String(it.key), value: it.value ?? null, tags: Array.isArray(it.tags) ? it.tags : [], updated_at: new Date() } },
         upsert: true
       }
     }));

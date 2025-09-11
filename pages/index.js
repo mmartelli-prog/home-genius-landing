@@ -1,1 +1,3 @@
-export default function Home(){return <div style={{padding:20,fontFamily:"sans-serif"}}>Home Genius API up.</div>;}
+export default function Home(){
+  return <div style={{padding:20,fontFamily:"sans-serif"}}>Home Genius API up.</div>;
+}
