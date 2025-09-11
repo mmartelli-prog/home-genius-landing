@@ -1,5 +1,14 @@
 export default async function handler(req, res) {
-  const { lookup_key, lookup_type } = req.body.args || req.body;
+  // Handle both formats
+  let lookup_key, lookup_type;
+  
+  if (req.body.args) {
+    lookup_key = req.body.args.lookup_key;
+    lookup_type = req.body.args.lookup_type;
+  } else {
+    lookup_key = req.body.lookup_key;
+    lookup_type = req.body.lookup_type;
+  }
   
   // Hardcoded appointments for demo
   const appointments = {
